@@ -1,0 +1,12 @@
+{
+  "name": "jys-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "client:install": "npm --prefix client install",
+    "client:build": "npm --prefix client run build",
+    "server:install": "npm --prefix server install",
+    "start": "node server/index.js",
+    "build": "npm run client:install && npm run client:build && npm run server:install"
+  }
+}
