@@ -328,6 +328,48 @@ function initFooterYear() {
   }
 }
 
+// GitHub Pages SPA routing handler
+function handleSPARouting() {
+  // Check if we have a path in the URL (from 404.html redirect)
+  var path = window.location.search.slice(1).toLowerCase();
+  if (path && path.indexOf('&') !== -1) {
+    path = path.slice(0, path.indexOf('&'));
+  }
+  path = path.replace(/~and~/g, '&');
+  path = decodeURIComponent(path);
+  
+  if (path) {
+    // Remove leading slash if present
+    path = path.replace(/^\/+/, '');
+    
+    // Handle demo routes
+    if (path.startsWith('demo/')) {
+      const demoPath = path.replace('demo/', '');
+      if (demoPath === 'phishtrainer' || demoPath === 'scalpai') {
+        window.location.href = `demo/${demoPath}.html`;
+        return;
+      }
+    }
+    
+    // Handle section anchors (e.g., #about, #projects)
+    if (path.startsWith('#')) {
+      const sectionId = path.slice(1);
+      setTimeout(() => {
+        scrollToId(sectionId);
+      }, 100);
+    } else {
+      // Try to scroll to section if it exists
+      const sectionId = path.split('/').pop();
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          scrollToId(sectionId);
+        }
+      }, 100);
+    }
+  }
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initSnowCanvas();
@@ -338,5 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initSmoothScroll();
   initFooterYear();
+  handleSPARouting();
 });
 
