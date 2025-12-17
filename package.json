@@ -7,6 +7,8 @@
     "client:build": "npm --prefix client run build",
     "server:install": "npm --prefix server install",
     "start": "node server/index.js",
-    "build": "npm run client:install && npm run client:build && npm run server:install"
+    "build": "npm run client:install && npm run client:build && npm run server:install",
+    "deploy:copy": "node scripts/copy-dist.js",
+    "deploy": "npm run build && npm run deploy:copy"
   }
 }
