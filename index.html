@@ -9,13 +9,14 @@
   <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-  <div class="min-h-dvh bg-[#070B18] text-white">
+  <div class="min-h-dvh app-bg text-white">
     <canvas id="snowCanvas" aria-hidden="true" class="pointer-events-none fixed inset-0 z-0 opacity-70"></canvas>
+    <canvas id="petalCanvas" aria-hidden="true" class="pointer-events-none fixed inset-0 z-0 opacity-70"></canvas>
 
     <!-- Video Modal -->
     <div id="videoModal" class="fixed inset-0 z-40 hidden" role="dialog" aria-modal="true">
       <button type="button" id="videoModalBackdrop" class="absolute inset-0 bg-black/70"></button>
-      <div class="relative z-10 mx-auto mt-16 w-[min(980px,94vw)] overflow-hidden rounded-3xl border border-white/10 bg-[#070B18] shadow-[0_30px_90px_rgba(0,0,0,0.65)]">
+      <div class="relative z-10 mx-auto mt-16 w-[min(980px,94vw)] overflow-hidden rounded-3xl border border-white/10 app-bg shadow-[0_30px_90px_rgba(0,0,0,0.65)]">
         <div class="flex items-center justify-between gap-4 border-b border-white/10 bg-white/5 px-4 py-3 backdrop-blur-xl">
           <div>
             <p class="text-xs tracking-[0.22em] text-white/60">IMPLEMENTATION VIDEO</p>
@@ -32,7 +33,7 @@
     </div>
 
     <!-- Intro Overlay -->
-    <div id="introOverlay" class="fixed inset-0 z-50 grid place-items-center bg-[#070B18] transition-opacity duration-500 opacity-100">
+    <div id="introOverlay" class="fixed inset-0 z-50 grid place-items-center app-bg transition-opacity duration-500 opacity-100">
       <div class="relative mx-auto w-[min(520px,92vw)] rounded-3xl border border-white/10 bg-white/5 p-8 text-center shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl">
         <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
           <div id="introSweep" class="absolute -left-1/3 top-0 h-full w-2/3 bg-gradient-to-r from-transparent via-white/12 to-transparent"></div>
@@ -53,13 +54,13 @@
       </div>
     </div>
 
-    <header class="sticky top-0 z-20 border-b border-white/10 bg-[#070B18]/70 backdrop-blur-xl">
+    <header class="sticky top-0 z-20 border-b border-white/10 app-bg-70 backdrop-blur-xl">
       <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
         <button type="button" id="headerLogo" class="flex items-center gap-2 rounded-xl px-2 py-1 text-left text-sm font-semibold tracking-tight hover:bg-white/5">
           <span class="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-white/10">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
           </span>
-          <span>YS Portfolio</span>
+          <span>정영수 포트폴리오</span>
         </button>
         <nav class="hidden items-center gap-1 sm:flex">
           <button class="nav-btn" data-scroll-to="about" type="button">About</button>
@@ -67,12 +68,75 @@
           <button class="nav-btn" data-scroll-to="projects" type="button">Projects</button>
           <button class="nav-btn" data-scroll-to="contact" type="button">Contact</button>
         </nav>
-        <a href="https://github.com/Maeksu/git00.git" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/90">
-          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
-        </a>
+        <div class="flex items-center gap-2">
+          <button type="button" class="theme-toggle-btn" data-theme="spring" aria-label="봄 테마로 변경">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11.25a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2.75c2.35 0 4.25 1.9 4.25 4.25 0 1.2-.5 2.28-1.3 3.05-.55.53-1.29.85-2.1.85-.27 0-.55-.04-.8-.12.15-.47.23-.97.23-1.49 0-.52-.08-1.02-.23-1.49.25-.08.53-.12.8-.12.45 0 .86-.18 1.16-.49.41-.42.66-1 .66-1.61 0-1.27-1.03-2.3-2.3-2.3-1.04 0-1.93.7-2.21 1.66-.35-.09-.72-.13-1.1-.13s-.75.04-1.1.13C9.82 3.45 10.71 2.75 11.75 2.75H12z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.25 12c0 2.35-1.9 4.25-4.25 4.25-1.2 0-2.28-.5-3.05-1.3-.53-.55-.85-1.29-.85-2.1 0-.27.04-.55.12-.8.47.15.97.23 1.49.23.52 0 1.02-.08 1.49-.23.08.25.12.53.12.8 0 .45.18.86.49 1.16.42.41 1 .66 1.61.66 1.27 0 2.3-1.03 2.3-2.3 0-1.04-.7-1.93-1.66-2.21.09-.35.13-.72.13-1.1s-.04-.75-.13-1.1c.96.28 1.66 1.17 1.66 2.21V12z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.25c-2.35 0-4.25-1.9-4.25-4.25 0-1.2.5-2.28 1.3-3.05.55-.53 1.29-.85 2.1-.85.27 0 .55.04.8.12-.15.47-.23.97-.23 1.49 0 .52.08 1.02.23 1.49-.25.08-.53.12-.8.12-.45 0-.86.18-1.16.49-.41.42-.66 1-.66 1.61 0 1.27 1.03 2.3 2.3 2.3 1.04 0 1.93-.7 2.21-1.66.35.09.72.13 1.1.13s.75-.04 1.1-.13c-.28.96-1.17 1.66-2.21 1.66H12z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.75 12c0-2.35 1.9-4.25 4.25-4.25 1.2 0 2.28.5 3.05 1.3.53.55.85 1.29.85 2.1 0 .27-.04.55-.12.8-.47-.15-.97-.23-1.49-.23-.52 0-1.02.08-1.49.23-.08-.25-.12-.53-.12-.8 0-.45-.18-.86-.49-1.16-.42-.41-1-.66-1.61-.66-1.27 0-2.3 1.03-2.3 2.3 0 1.04.7 1.93 1.66 2.21-.09.35-.13.72-.13 1.1s.04.75.13 1.1C3.45 15.93 2.75 15.04 2.75 14V12z" /></svg>
+          </button>
+          <button type="button" class="theme-toggle-btn" data-theme="winter" aria-label="겨울 테마로 변경">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20M2 12h20M4.5 4.5l15 15M19.5 4.5l-15 15" /></svg>
+          </button>
+        </div>
       </div>
     </header>
+
+    <div id="figmaModal" class="fixed inset-0 z-40 hidden" role="dialog" aria-modal="true">
+      <button type="button" id="figmaModalBackdrop" class="absolute inset-0 bg-black/70"></button>
+      <div class="relative z-10 mx-auto mt-12 w-[min(1020px,94vw)] overflow-hidden rounded-3xl border border-white/10 app-bg shadow-[0_30px_90px_rgba(0,0,0,0.65)]">
+        <div class="flex items-center justify-between gap-4 border-b border-white/10 bg-white/5 px-4 py-3 backdrop-blur-xl">
+          <div>
+            <p class="text-xs tracking-[0.22em] text-white/60">FIGMA COLLECTION</p>
+            <p class="mt-1 text-sm font-semibold">오늘의 너에게</p>
+          </div>
+          <button type="button" id="figmaModalClose" class="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 p-2 text-white/80 transition hover:bg-white/10 hover:text-white" aria-label="닫기">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+        <div class="figma-modal-content bg-black/30 p-4">
+          <div class="figma-modal-strip">
+            <img src="client/public/assets/collection1.png" alt="Collection 1" loading="lazy" />
+            <img src="client/public/assets/collection2.png" alt="Collection 2" loading="lazy" />
+          </div>
+          <p class="mt-2 text-xs text-white/60">도록 사진</p>
+
+          <div class="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-black/30">
+            <img src="client/public/assets/poster.png" alt="Poster" class="w-full object-contain" loading="lazy" />
+          </div>
+          <p class="mt-2 text-xs text-white/60">포스터 사진</p>
+
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+            <button type="button" id="figmaModalBack" class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10">
+              뒤로가기
+            </button>
+            <button type="button" id="figmaModalGoProject" class="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-white/90">
+              프로젝트 바로가기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="projectInfoModal" class="fixed inset-0 z-40 hidden" role="dialog" aria-modal="true">
+      <button type="button" id="projectInfoModalBackdrop" class="absolute inset-0 bg-black/70"></button>
+      <div class="relative z-10 mx-auto mt-12 w-[min(980px,94vw)] overflow-hidden rounded-3xl border border-white/10 app-bg shadow-[0_30px_90px_rgba(0,0,0,0.65)]">
+        <div class="flex items-center justify-between gap-4 border-b border-white/10 bg-white/5 px-4 py-3 backdrop-blur-xl">
+          <div>
+            <p class="text-xs tracking-[0.22em] text-white/60">PROJECT OVERVIEW</p>
+            <p id="projectInfoModalTitle" class="mt-1 text-sm font-semibold"></p>
+          </div>
+          <button type="button" id="projectInfoModalClose" class="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 p-2 text-white/80 transition hover:bg-white/10 hover:text-white" aria-label="닫기">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+        <div class="project-info-content bg-black/30 p-5">
+          <div id="projectInfoModalBody" class="space-y-4 text-sm text-white/75"></div>
+          <div class="mt-6 flex justify-end">
+            <button type="button" id="projectInfoModalBack" class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10">
+              뒤로가기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <main id="top" class="relative z-10">
       <!-- Hero Section -->
@@ -83,11 +147,11 @@
               <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
               Open to work
             </p>
-            <h2 class="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
-              연말의 분위기와 함께,
-              <span class="block text-white/80">완성도 있는 제품을 만드는<br /> 개발자</span>
+            <h2 id="heroTitle" class="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
+              <span id="heroTitleLead">연말의 분위기와 함께,</span>
+              <span id="heroTitleEmphasis" class="block text-white/80">완성도 있는 제품을<br /><span class="whitespace-nowrap">만드는 개발자</span></span>
             </h2>
-            <p class="mt-4 max-w-xl text-base leading-relaxed text-white/70">
+            <p id="heroDescription" class="mt-4 max-w-xl text-base leading-relaxed text-white/70">
               사용자 경험과 디테일(성능/접근성/반응형)을 끝까지 다듬는 것을 우선시합니다.
               올해의 결과물을 더 매력적으로 보여주기 위해 크리스마스 무드의 인터랙션을 더했습니다.
             </p>
@@ -102,12 +166,9 @@
               </a>
             </div>
             <div class="mt-7 flex flex-wrap gap-2">
-              <span class="badge">빠른 프로토타이핑</span>
               <span class="badge">사용자 중심 사고</span>
-              <span class="badge">꼼꼼한 코드 리뷰</span>
-              <span class="badge">호기심 많은 학습자</span>
-              <div class="w-full"></div>
-              <span class="badge">열린 소통</span>
+              <span class="badge">활발한 커뮤니케이션</span>
+              <span class="badge">호시심 많은 학습자</span>
               <span class="badge">끈기 있는 문제 해결</span>
             </div>
           </div>
@@ -117,7 +178,7 @@
               <div class="grid gap-3">
                 <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-black/30">
                   <img src="assets/KakaoTalk_20250312_014606759.jpg" alt="프로필" class="h-[260px] w-full object-contain bg-black/20 sm:h-[320px]" loading="eager" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-[#070B18]/80 via-transparent to-transparent"></div>
+                  <div class="absolute inset-0 app-bg-gradient-to-t"></div>
                   <div class="absolute bottom-4 left-4 right-4">
                     <p class="text-sm font-semibold">정영수</p>
                     <p class="mt-1 text-xs text-white/70">Full-stack developer · Product-minded</p>
@@ -202,7 +263,7 @@
                   </div>
                   <div>
                     <p class="text-xs text-white/60">학력</p>
-                    <p class="mt-1 text-sm font-semibold">재능대학교 컴퓨터소프트웨어학과</p>
+                    <p class="mt-1 text-sm font-semibold">재능대학교<br />컴퓨터소프트웨어학과</p>
                   </div>
                 </div>
               </div>
@@ -217,7 +278,7 @@
               <h3 class="text-sm font-semibold tracking-wide text-white/90">Skills</h3>
             </div>
             <div class="text-sm text-white/75">
-              <div class="space-y-4">
+              <div id="skillsBadges" class="space-y-4">
                 <div class="grid gap-2 sm:grid-cols-[140px_1fr] sm:items-start">
                   <p class="text-xs font-semibold tracking-[0.18em] text-white/60">LANGUAGE</p>
                   <div class="flex flex-wrap gap-2">
@@ -244,15 +305,41 @@
                     <span class="badge">Gradle</span>
                     <span class="badge">Firebase</span>
                     <span class="badge">Node.js</span>
-                    <span class="badge">Express</span>
                   </div>
                 </div>
                 <div class="grid gap-2 sm:grid-cols-[140px_1fr] sm:items-start">
                   <p class="text-xs font-semibold tracking-[0.18em] text-white/60">DEVOPS</p>
                   <div class="flex flex-wrap gap-2">
                     <span class="badge">Docker</span>
-                    <span class="badge">AWS</span>
+                      <span class="badge">Vercel</span>
+                      <span class="badge">Render</span>
                     <span class="badge">Cloudflare</span>
+                  </div>
+                </div>
+                <div class="grid gap-2 sm:grid-cols-[140px_1fr] sm:items-start">
+                  <p class="text-xs font-semibold tracking-[0.18em] text-white/60">COLLABORATION</p>
+                  <div class="flex flex-wrap gap-2">
+                    <div class="collab-card collab-static">
+                      <span class="collab-meta">
+                        <span class="collab-title">GitHub</span>
+                      </span>
+                    </div>
+                    <button class="collab-card figma-card" type="button" id="openFigmaModal">
+                      <span class="figma-ribbon" aria-hidden="true">New!</span>
+                      <span class="collab-meta">
+                        <span class="collab-title">Figma</span>
+                      </span>
+                    </button>
+                    <div class="collab-card collab-static">
+                      <span class="collab-meta">
+                        <span class="collab-title">Discord</span>
+                      </span>
+                    </div>
+                    <div class="collab-card collab-static">
+                      <span class="collab-meta">
+                        <span class="collab-title">Notion</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -279,15 +366,15 @@
               <ul class="space-y-2">
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">목표 정리</span>: 우선순위 설정</span>
+                  <span><span class="font-semibold text-white/90">목표 정리</span>: 기능 단위 우선순위 설정</span>
                 </li>
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">완성 기준</span>: 배포 가능한 품질</span>
+                  <span><span class="font-semibold text-white/90">완성 기준</span>: 배포 가능한 상태 기준</span>
                 </li>
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">리스크 관리</span>: 어려운 것 먼저</span>
+                  <span><span class="font-semibold text-white/90">리스크 관리</span>: 기술 난이도 높은 요소 선처리</span>
                 </li>
               </ul>
             </div>
@@ -297,21 +384,21 @@
               <div class="grid h-9 w-9 place-items-center rounded-xl bg-white/10 text-white">
                 <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
               </div>
-              <h3 class="text-sm font-semibold tracking-wide text-white/90">Collaboration</h3>
+              <h3 class="text-sm font-semibold tracking-wide text-white/90">Team Workflow</h3>
             </div>
             <div class="text-sm text-white/75">
               <ul class="space-y-2">
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">Git 기반</span>: PR 단위</span>
+                  <span><span class="font-semibold text-white/90">Git 기반</span>: PR 단위로 기능 분리 및 리뷰 흐름 유지</span>
                 </li>
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">문서화</span>: 변경 이유 기록</span>
+                  <span><span class="font-semibold text-white/90">문서화</span>: 변경 이유와 의도를 커밋/README로 기록</span>
                 </li>
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">합의</span>: 규칙 맞추기</span>
+                  <span><span class="font-semibold text-white/90">합의</span>: 팀 내 컨벤션 및 작업 규칙 사전 합의</span>
                 </li>
               </ul>
             </div>
@@ -327,15 +414,15 @@
               <ul class="space-y-2">
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">컴포넌트화</span>: 재사용</span>
+                  <span><span class="font-semibold text-white/90">컴포넌트화</span>: 재사용 가능한 UI 단위로 구조 설계</span>
                 </li>
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">상태 관리</span>: 전역/로컬 분리</span>
+                  <span><span class="font-semibold text-white/90">상태 관리</span>: 전역 상태와 로컬 상태를 목적에 따라 분리</span>
                 </li>
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">디테일</span>: UX 마감</span>
+                  <span><span class="font-semibold text-white/90">디테일</span>: 인터랙션과 마감 UX까지 고려</span>
                 </li>
               </ul>
             </div>
@@ -351,15 +438,15 @@
               <ul class="space-y-2">
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">시안/탐색</span>: 빠른 비교</span>
+                  <span><span class="font-semibold text-white/90">시안/탐색</span>: 여러 구현 방식을 빠르게 비교·검증</span>
                 </li>
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">반복 자동화</span>: 시간 절약</span>
+                  <span><span class="font-semibold text-white/90">반복 자동화</span>: 보일러플레이트 작업을 줄여 개발 속도 향상</span>
                 </li>
                 <li class="flex gap-2">
                   <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-white/60"></span>
-                  <span><span class="font-semibold text-white/90">품질 점검</span>: 오류 정리</span>
+                  <span><span class="font-semibold text-white/90">품질 점검</span>: 로직 오류 및 예외 케이스 정리</span>
                 </li>
               </ul>
             </div>
@@ -415,17 +502,19 @@
         <div class="flex flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-white/70 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
           <p id="footerYear">© 2024 정영수. All rights reserved.</p>
           <div class="flex flex-wrap gap-3">
-            <a class="footer-link" href="https://github.com/Maeksu/git00.git" target="_blank" rel="noreferrer">
-              GitHub
-              <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+            <a class="footer-link" href="https://github.com/Maeksu" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             </a>
-            <button class="footer-link" type="button" data-scroll-to="top">
-              Back to top
-              <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-            </button>
+            <a class="footer-link" href="https://www.instagram.com/ysking1127/" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm10.75 1.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+            </a>
           </div>
         </div>
       </footer>
+
+      <button id="scrollTopBtn" class="scroll-top-btn" type="button" data-scroll-to="top" aria-label="상단으로 이동">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
+      </button>
     </main>
   </div>
   <script src="app.js"></script>
